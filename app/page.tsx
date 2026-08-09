@@ -8,23 +8,147 @@ import { whatsappUrl } from '@/lib/site';
 
 const corridors = [
   { flag: '🇸🇦', title: 'Arab Saudi', detail: 'Umrah • Visa • Haramain • Bus' },
-  { flag: '🇪🇬', title: 'Mesir', detail: 'Visa • Bagasi • Perjalanan Rombongan' },
-  { flag: '🇹🇷', title: 'Turki', detail: 'Paket Perjalanan • Rombongan • Transportasi' },
+  { flag: '🇪🇬', title: 'Mesir', detail: 'Visa • Bagasi • LA & Handling' },
+  { flag: '🇹🇷', title: 'Turki', detail: 'LA • Rombongan • Transportasi' },
 ];
+
 const advantages = [
   { Icon: ShieldCheck, title: 'Kebutuhan Lebih Jelas', text: 'Ceritakan kebutuhan perjalanan Anda, lalu admin membantu memilih layanan yang sesuai.' },
-  { Icon: Headphones, title: 'Konsultasi Langsung', text: 'Tanya jadwal, harga, visa, hotel, transportasi, atau kebutuhan rombongan melalui admin.' },
+  { Icon: Headphones, title: 'Konsultasi Langsung', text: 'Tanya jadwal, harga, visa, hotel, LA, handling, transportasi, atau kebutuhan rombongan.' },
   { Icon: Globe2, title: 'Layanan Lintas Negara', text: 'Melayani kebutuhan perjalanan Arab Saudi, Mesir, Turki, dan Indonesia.' },
 ];
 
-export default function HomePage() { return <>
-  <section className="hero-sheen overflow-hidden py-12 sm:py-16 lg:py-20"><div className="shell grid items-center gap-10 lg:grid-cols-12"><div className="space-y-6 text-center lg:col-span-7 lg:text-left"><div className="inline-flex items-center gap-2 rounded-full border border-[#b8903a]/35 bg-[#07131f]/95 px-4 py-2 text-[10px] font-extrabold text-[#d3ab5a] shadow-lg sm:text-xs"><span className="size-2.5 rounded-full bg-emerald-400 shadow-[0_0_0_5px_rgba(52,211,153,.12)]"/>Melayani Indonesia • Mesir • Turki • Arab Saudi</div><h1 className="serif mx-auto max-w-4xl text-balance text-[clamp(3rem,7vw,5.8rem)] font-bold leading-[.98] text-[#07131f] lg:mx-0">Semua Kebutuhan Perjalanan Anda, Dalam <span className="gold-gradient-text">Satu Partner Terpercaya</span></h1><p className="mx-auto max-w-2xl text-sm font-medium leading-8 text-slate-600 sm:text-lg lg:mx-0">Mulai dari Umrah, perjalanan Mesir & Turki, pengurusan visa, tiket pesawat, kereta Haramain, bus, hotel, hingga bagasi Cairo ⇄ Jakarta. Konsultasikan kebutuhan Anda, kami bantu dari awal sampai siap berangkat.</p><div className="premium-card mx-auto max-w-2xl p-3 text-left lg:mx-0"><p className="px-2 pb-2 pt-1 text-[10px] font-black uppercase tracking-[.14em] text-[#07131f]"><Sparkles size={14} className="mr-1.5 inline text-[#96721f]"/> Saya ingin mencari layanan untuk</p><div className="grid gap-2 sm:grid-cols-2"><Link href="/b2b" className="btn-gold flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-center text-xs font-black"><Building2 size={17}/> Travel & Rombongan</Link><a href={whatsappUrl("Assalamu'alaikum Barokah Group, saya ingin konsultasi layanan perjalanan. Kebutuhan saya: ...")} target="_blank" rel="noreferrer" className="flex items-center justify-center gap-2 rounded-xl bg-slate-100 px-4 py-3 text-center text-xs font-black text-slate-700 transition hover:bg-slate-200"><UsersRound size={17}/> Pribadi / Jamaah</a></div></div><div className="dark-glass-card mx-auto max-w-2xl rounded-2xl border-l-4 border-l-[#b8903a] p-5 text-left text-white lg:mx-0"><p className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[.14em] text-[#d3ab5a]"><BadgeCheck size={15}/> Khusus Travel & Rombongan</p><p className="mt-2 text-xs leading-6 text-slate-300">Punya rombongan Umrah atau perjalanan grup? Kirim jumlah peserta, tanggal, kota tujuan, kebutuhan hotel, visa, dan transportasi. Tim kami akan membantu menyiapkan penawaran yang sesuai.</p><div className="mt-4 flex flex-wrap gap-3"><Link href="/b2b" className="btn-gold inline-flex items-center gap-2 rounded-lg px-4 py-2.5 text-xs font-black">Minta Penawaran Rombongan <ArrowRight size={15}/></Link><Link href="/b2b" className="inline-flex items-center gap-2 text-xs font-bold text-[#dfbf72] hover:text-white">Lihat cara pemesanan</Link></div></div></div><div className="lg:col-span-5"><div className="dark-glass-card relative rounded-3xl p-5 text-white sm:p-7"><span className="absolute -top-3 right-6 rounded-full bg-[#b8903a] px-3.5 py-1 text-[9px] font-black uppercase tracking-wider text-[#07131f] shadow-lg">Konsultasi Langsung</span><div className="flex items-center gap-3 border-b border-white/10 pb-4"><span className="grid size-10 place-items-center rounded-xl bg-[#b8903a]/15 text-[#d3ab5a]"><Globe2 size={20}/></span><div><p className="serif text-2xl font-bold text-white">Layanan Lintas Negara</p><p className="text-[10px] uppercase tracking-widest text-slate-500">Perjalanan • Visa • Transportasi • Bagasi</p></div></div><div className="mt-5 space-y-3">{corridors.map(item => <div key={item.title} className="flex items-center justify-between gap-3 rounded-xl border border-white/8 bg-white/[.035] p-4"><div className="flex min-w-0 items-center gap-3"><span className="text-2xl">{item.flag}</span><div className="min-w-0"><p className="text-xs font-black">{item.title}</p><p className="mt-1 truncate text-[10px] text-slate-400">{item.detail}</p></div></div><span className="shrink-0 text-[10px] font-black text-emerald-400"><CheckCircle2 size={13} className="mr-1 inline"/> Tersedia</span></div>)}</div><div className="mt-5 rounded-2xl border border-[#b8903a]/25 bg-[#0a1420] p-4 text-center"><p className="text-xs text-slate-300">Belum yakin layanan mana yang Anda butuhkan?</p><a href={whatsappUrl("Assalamu'alaikum Barokah Group, saya ingin konsultasi kebutuhan perjalanan. Rencana saya: ...")} target="_blank" rel="noreferrer" className="btn-gold mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl py-3 text-xs font-black"><MessageCircle size={16}/> Konsultasi Gratis via WhatsApp</a></div></div></div></div></section>
-  <section className="border-y border-[#142132] bg-[#07131f] py-6 text-white"><div className="shell grid grid-cols-2 gap-6 text-center md:grid-cols-4"><div><p className="text-lg font-black text-[#d3ab5a] sm:text-2xl">Travel & Pribadi</p><p className="mt-1 text-[10px] font-medium text-slate-400 sm:text-xs">Untuk rombongan maupun individu</p></div><div><p className="text-lg font-black text-[#d3ab5a] sm:text-2xl">Mudah Dikonsultasikan</p><p className="mt-1 text-[10px] font-medium text-slate-400 sm:text-xs">Cukup ceritakan kebutuhan Anda</p></div><div><p className="text-lg font-black text-[#d3ab5a] sm:text-2xl">4 Negara</p><p className="mt-1 text-[10px] font-medium text-slate-400 sm:text-xs">Indonesia • Mesir • Turki • Saudi</p></div><div><p className="text-lg font-black text-[#d3ab5a] sm:text-2xl">Admin Langsung</p><p className="mt-1 text-[10px] font-medium text-slate-400 sm:text-xs">Tanya harga, jadwal & layanan</p></div></div></section>
-  <section id="layanan" className="section"><div className="shell"><div className="mx-auto mb-12 max-w-3xl text-center"><span className="eyebrow text-[#96721f]">Layanan Utama Barokah Group</span><h2 className="serif mt-4 text-balance text-4xl font-bold text-[#07131f] sm:text-5xl">Solusi Lengkap untuk Perjalanan Anda</h2><p className="mt-4 text-sm font-medium text-slate-500">Pilih layanan yang Anda butuhkan. Setiap halaman berisi penjelasan singkat dan tombol konsultasi langsung dengan admin.</p></div><div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{services.slice(0,6).map((service, i) => { const Icon = service.icon; return <Link key={service.slug} href={`/layanan/${service.slug}`} className="premium-card service-card group relative overflow-hidden p-6"><div className="absolute right-0 top-0 h-20 w-20 rounded-bl-[60px] bg-[#b8903a]/8"/><div className="flex items-start justify-between gap-4"><span className="grid size-11 place-items-center rounded-xl bg-[#07131f] text-[#d3ab5a] shadow-lg"><Icon size={21}/></span><span className="text-[10px] font-black text-[#b8903a]">0{i+1}</span></div><h3 className="serif mt-7 text-2xl font-bold text-[#07131f]">{service.title}</h3><p className="mt-3 text-xs leading-6 text-slate-500">{service.summary}</p><span className="mt-6 inline-flex items-center gap-2 text-xs font-black text-[#96721f]">Lihat layanan <ArrowRight size={15} className="transition group-hover:translate-x-1"/></span></Link>})}</div></div></section>
-  <section id="galeri-brosur" className="border-y border-[#b8903a]/15 bg-[#07131f] py-20 text-white"><div className="shell"><div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between"><div><span className="eyebrow text-[#d3ab5a]">Produk & Brosur</span><h2 className="serif mt-3 text-4xl font-bold text-[#f5e9c8] sm:text-5xl">Lihat Produk, Promo, dan Layanan Pilihan</h2><p className="mt-4 max-w-2xl text-sm leading-7 text-slate-400">Buka brosur untuk melihat informasi layanan secara cepat, lalu hubungi admin untuk menanyakan harga, ketersediaan, dan pemesanan.</p></div><Link href="/promo-brosur" className="inline-flex items-center gap-2 text-xs font-black text-[#d3ab5a]">Lihat semua brosur <ArrowRight size={16}/></Link></div><div className="mt-9"><BrochureGrid compact/></div></div></section>
-  <section className="relative overflow-hidden py-20 sm:py-24"><div className="absolute inset-0 bg-gradient-to-br from-[#f8f5ee] via-white to-[#eef3f7]"/><div className="absolute -left-24 top-0 size-72 rounded-full bg-[#d3ab5a]/10 blur-3xl"/><div className="absolute -right-20 bottom-0 size-80 rounded-full bg-[#07131f]/8 blur-3xl"/><div className="shell relative"><div className="mb-10 grid gap-6 lg:grid-cols-[1fr_.7fr] lg:items-end"><div><span className="eyebrow text-[#96721f]">Bagasi Cairo ⇄ Jakarta</span><h2 className="serif mt-4 max-w-3xl text-balance text-4xl font-bold text-[#07131f] sm:text-6xl">Jadwal Keberangkatan <span className="gold-gradient-text">Terbaru</span></h2><p className="mt-5 max-w-2xl text-sm leading-7 text-slate-600">Cek jadwal terdekat, status pendaftaran, dan pesan slot langsung melalui WhatsApp. Cocok untuk mahasiswa, diaspora, jamaah, maupun traveler.</p></div><div className="flex flex-col gap-3 sm:flex-row lg:justify-end"><Link href="/bagasi-cairo-jakarta" className="inline-flex items-center justify-center gap-2 rounded-xl border border-[#07131f]/15 bg-white px-5 py-3 text-xs font-black text-[#07131f] shadow-sm transition hover:border-[#b8903a]/40">Lihat Semua Jadwal <ArrowRight size={15}/></Link><a href={whatsappUrl("Assalamu'alaikum Barokah Group, saya ingin tanya jadwal dan harga bagasi Cairo-Jakarta. Estimasi berat saya: ... kg.")} target="_blank" rel="noreferrer" className="btn-gold inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-xs font-black"><MessageCircle size={16}/> Tanya Harga Bagasi</a></div></div><BaggageScheduleBoard compact/></div></section>
-  <section className="section bg-white/65 backdrop-blur-sm"><div className="shell grid gap-8 lg:grid-cols-[.8fr_1.2fr] lg:items-center"><div><span className="eyebrow text-[#96721f]">Untuk Travel & Rombongan</span><h2 className="serif mt-4 text-balance text-5xl font-bold text-[#07131f]">Butuh layanan untuk banyak peserta? Kami bantu susun kebutuhannya.</h2><p className="mt-5 max-w-xl text-sm leading-8 text-slate-500">Cukup siapkan jumlah peserta, tanggal perjalanan, kota tujuan, kebutuhan hotel, visa, dan transportasi. Tim kami akan membantu menyiapkan penawaran yang lebih sesuai dan mudah dipahami.</p><Link href="/b2b" className="btn-gold mt-7 inline-flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-black"><Building2 size={17}/> Minta Penawaran Rombongan <ArrowRight size={16}/></Link></div><div className="dark-glass-card rounded-3xl p-6 text-white sm:p-8"><div className="grid gap-4 sm:grid-cols-2">{[{Icon: Building2,title:'Untuk Travel & Rombongan',text:'Cocok untuk jamaah, grup wisata, dan kebutuhan travel agent.'},{Icon: Plane,title:'Beberapa Negara',text:'Arab Saudi, Mesir, Turki, serta rute terkait Indonesia.'},{Icon: Clock3,title:'Lebih Cepat Dibahas',text:'Informasi awal yang lengkap membantu admin memberi jawaban lebih cepat.'},{Icon: MapPin,title:'Dibantu Sesuai Kebutuhan',text:'Hotel, visa, transportasi, tiket, dan kebutuhan perjalanan lainnya.'}].map(({Icon,title,text}) => <div key={title} className="rounded-2xl border border-white/10 bg-white/[.035] p-5"><Icon size={22} className="text-[#d3ab5a]"/><p className="mt-6 text-sm font-black">{title}</p><p className="mt-2 text-xs leading-6 text-slate-400">{text}</p></div>)}</div></div></div></section>
-  <section className="border-y border-slate-200 bg-white/65 py-20 backdrop-blur-sm"><div className="shell"><div className="grid gap-8 lg:grid-cols-[.7fr_1.3fr]"><div><span className="eyebrow text-[#96721f]">Kenapa Barokah Group</span><h2 className="serif mt-4 text-5xl font-bold text-[#07131f]">Perjalanan terasa lebih mudah ketika semua kebutuhan ada di satu tempat.</h2></div><div className="grid gap-4 sm:grid-cols-3">{advantages.map(({Icon,title,text}) => <div key={title} className="premium-card p-6"><Icon size={24} className="text-[#b8903a]"/><h3 className="mt-8 text-sm font-black text-[#07131f]">{title}</h3><p className="mt-3 text-xs leading-6 text-slate-500">{text}</p></div>)}</div></div></div></section>
-  <TestimonialsCms />
-  <section id="pertanyaan-umum" className="section bg-[#07131f] text-white"><div className="shell grid gap-10 lg:grid-cols-[.7fr_1.3fr]"><div><span className="eyebrow text-[#d3ab5a]">Pertanyaan Umum</span><h2 className="serif mt-4 text-balance text-5xl font-bold text-[#f5e9c8]">Masih ada yang ingin ditanyakan?</h2><p className="mt-5 max-w-md text-sm leading-7 text-slate-400">Kami rangkum pertanyaan yang paling sering ditanyakan tentang layanan, pemesanan, visa, dan perjalanan.</p><Link href="/faq" className="btn-gold mt-7 inline-flex items-center gap-2 rounded-xl px-5 py-3 text-xs font-black"><CircleHelp size={16}/> Lihat Semua Pertanyaan <ArrowRight size={15}/></Link></div><div className="grid gap-3">{faqs.slice(0,5).map((item,i)=><details key={item.q} className="group rounded-2xl border border-white/10 bg-white/[.04] p-5 transition open:border-[#b8903a]/35 open:bg-white/[.06]"><summary className="cursor-pointer list-none text-sm font-black text-white"><span className="mr-3 text-[#d3ab5a]">0{i+1}</span>{item.q}</summary><p className="mt-4 border-t border-white/10 pt-4 text-sm leading-7 text-slate-400">{item.a}</p></details>)}</div></div></section>
-</>; }
+export default function HomePage() {
+  return <>
+    <section className="hero-sheen overflow-hidden py-10 sm:py-14 lg:py-16">
+      <div className="shell grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
+        <div className="space-y-5 text-center lg:col-span-7 lg:text-left">
+          <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-[#b8903a]/35 bg-[#07131f]/95 px-3.5 py-2 text-[9px] font-extrabold text-[#d3ab5a] shadow-lg sm:px-4 sm:text-xs">
+            <span className="size-2.5 shrink-0 rounded-full bg-emerald-400 shadow-[0_0_0_5px_rgba(52,211,153,.12)]"/>
+            <span className="truncate">Melayani Indonesia • Mesir • Turki • Arab Saudi</span>
+          </div>
+          <h1 className="serif mx-auto max-w-[780px] text-balance text-[clamp(2.8rem,7vw,5.2rem)] font-bold leading-[.98] text-[#07131f] lg:mx-0">
+            Semua Kebutuhan Perjalanan Anda, Dalam <span className="gold-gradient-text">Satu Partner Terpercaya</span>
+          </h1>
+          <p className="mx-auto max-w-2xl text-sm font-medium leading-7 text-slate-600 sm:text-base sm:leading-8 lg:mx-0">
+            Mulai dari Umrah, LA / Land Arrangement Mesir & Turki, handling, pengurusan visa, tiket pesawat, kereta Haramain, bus, hotel, hingga bagasi Cairo ⇄ Jakarta. Konsultasikan kebutuhan Anda, kami bantu dari awal sampai siap berangkat.
+          </p>
+          <div className="premium-card mx-auto max-w-2xl p-3 text-left lg:mx-0">
+            <p className="px-2 pb-2 pt-1 text-[10px] font-black uppercase tracking-[.14em] text-[#07131f]"><Sparkles size={14} className="mr-1.5 inline text-[#96721f]"/> Saya ingin mencari layanan untuk</p>
+            <div className="grid gap-2 sm:grid-cols-2">
+              <Link href="/b2b" className="btn-gold flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-center text-xs font-black"><Building2 size={17}/> Travel & Rombongan</Link>
+              <a href={whatsappUrl("Assalamu'alaikum Barokah Group, saya ingin konsultasi layanan perjalanan. Kebutuhan saya: ...")} target="_blank" rel="noreferrer" className="flex items-center justify-center gap-2 rounded-xl bg-slate-100 px-4 py-3 text-center text-xs font-black text-slate-700 transition hover:bg-slate-200"><UsersRound size={17}/> Pribadi / Jamaah</a>
+            </div>
+          </div>
+          <div className="dark-glass-card mx-auto max-w-2xl rounded-2xl border-l-4 border-l-[#b8903a] p-5 text-left text-white lg:mx-0">
+            <p className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[.14em] text-[#d3ab5a]"><BadgeCheck size={15}/> Khusus Travel & Rombongan</p>
+            <p className="mt-2 text-xs leading-6 text-slate-300">Punya rombongan Umrah atau perjalanan grup? Kirim jumlah peserta, tanggal, kota tujuan, hotel, visa, LA / Land Arrangement, handling, dan transportasi. Tim kami akan membantu menyiapkan penawaran yang sesuai.</p>
+            <div className="mt-4 flex flex-wrap gap-3">
+              <Link href="/b2b" className="btn-gold inline-flex items-center gap-2 rounded-lg px-4 py-2.5 text-xs font-black">Minta Penawaran Rombongan <ArrowRight size={15}/></Link>
+              <Link href="/b2b" className="inline-flex items-center gap-2 text-xs font-bold text-[#dfbf72] hover:text-white">Lihat cara pemesanan</Link>
+            </div>
+          </div>
+        </div>
+
+        <div className="lg:col-span-5">
+          <div className="dark-glass-card relative rounded-3xl p-5 text-white sm:p-7">
+            <span className="absolute -top-3 right-4 rounded-full bg-[#b8903a] px-3 py-1 text-[8px] font-black uppercase tracking-wider text-[#07131f] shadow-lg sm:right-6 sm:px-3.5 sm:text-[9px]">Konsultasi Langsung</span>
+            <div className="flex items-center gap-3 border-b border-white/10 pb-4">
+              <span className="grid size-10 place-items-center rounded-xl bg-[#b8903a]/15 text-[#d3ab5a]"><Globe2 size={20}/></span>
+              <div className="min-w-0"><p className="serif text-2xl font-bold text-white">Layanan Lintas Negara</p><p className="truncate text-[9px] uppercase tracking-[.14em] text-slate-500 sm:text-[10px]">LA • Visa • Handling • Transportasi • Bagasi</p></div>
+            </div>
+            <div className="mt-5 space-y-3">
+              {corridors.map(item => <div key={item.title} className="flex items-center justify-between gap-3 rounded-xl border border-white/8 bg-white/[.035] p-4">
+                <div className="flex min-w-0 items-center gap-3"><span className="text-2xl">{item.flag}</span><div className="min-w-0"><p className="text-xs font-black">{item.title}</p><p className="mt-1 truncate text-[10px] text-slate-400">{item.detail}</p></div></div>
+                <span className="shrink-0 text-[10px] font-black text-emerald-400"><CheckCircle2 size={13} className="mr-1 inline"/> Tersedia</span>
+              </div>)}
+            </div>
+            <div className="mt-5 rounded-2xl border border-[#b8903a]/25 bg-[#0a1420] p-4 text-center">
+              <p className="text-xs text-slate-300">Belum yakin layanan mana yang Anda butuhkan?</p>
+              <a href={whatsappUrl("Assalamu'alaikum Barokah Group, saya ingin konsultasi kebutuhan perjalanan. Rencana saya: ...")} target="_blank" rel="noreferrer" className="btn-gold mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl py-3 text-xs font-black"><MessageCircle size={16}/> Konsultasi Gratis via WhatsApp</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section className="border-y border-[#142132] bg-[#07131f] py-5 text-white">
+      <div className="shell grid grid-cols-2 gap-5 text-center md:grid-cols-4">
+        <div><p className="text-base font-black text-[#d3ab5a] sm:text-xl">Travel & Pribadi</p><p className="mt-1 text-[9px] font-medium text-slate-400 sm:text-xs">Untuk rombongan maupun individu</p></div>
+        <div><p className="text-base font-black text-[#d3ab5a] sm:text-xl">Mudah Dikonsultasikan</p><p className="mt-1 text-[9px] font-medium text-slate-400 sm:text-xs">Cukup ceritakan kebutuhan Anda</p></div>
+        <div><p className="text-base font-black text-[#d3ab5a] sm:text-xl">4 Negara</p><p className="mt-1 text-[9px] font-medium text-slate-400 sm:text-xs">Indonesia • Mesir • Turki • Saudi</p></div>
+        <div><p className="text-base font-black text-[#d3ab5a] sm:text-xl">Admin Langsung</p><p className="mt-1 text-[9px] font-medium text-slate-400 sm:text-xs">Tanya harga, jadwal & layanan</p></div>
+      </div>
+    </section>
+
+    <section id="layanan" className="section">
+      <div className="shell">
+        <div className="mx-auto mb-10 max-w-3xl text-center">
+          <span className="eyebrow text-[#96721f]">Layanan Utama Barokah Group</span>
+          <h2 className="serif mt-4 text-balance text-4xl font-bold text-[#07131f] sm:text-5xl">Solusi Lengkap untuk Perjalanan Anda</h2>
+          <p className="mt-4 text-sm font-medium text-slate-500">Pilih layanan yang Anda butuhkan. Setiap halaman berisi penjelasan singkat dan tombol konsultasi langsung dengan admin.</p>
+        </div>
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {services.slice(0,6).map((service, i) => { const Icon = service.icon; return <Link key={service.slug} href={`/layanan/${service.slug}`} className="premium-card service-card group relative overflow-hidden p-6"><div className="absolute right-0 top-0 h-20 w-20 rounded-bl-[60px] bg-[#b8903a]/8"/><div className="flex items-start justify-between gap-4"><span className="grid size-11 place-items-center rounded-xl bg-[#07131f] text-[#d3ab5a] shadow-lg"><Icon size={21}/></span><span className="text-[10px] font-black text-[#b8903a]">0{i+1}</span></div><h3 className="serif mt-6 text-2xl font-bold text-[#07131f]">{service.title}</h3><p className="mt-3 text-xs leading-6 text-slate-500">{service.summary}</p><span className="mt-5 inline-flex items-center gap-2 text-xs font-black text-[#96721f]">Lihat layanan <ArrowRight size={15} className="transition group-hover:translate-x-1"/></span></Link>})}
+        </div>
+      </div>
+    </section>
+
+    <section id="galeri-brosur" className="border-y border-[#b8903a]/15 bg-[#07131f] py-16 text-white sm:py-20">
+      <div className="shell">
+        <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+          <div><span className="eyebrow text-[#d3ab5a]">Produk & Brosur</span><h2 className="serif mt-3 text-4xl font-bold text-[#f5e9c8] sm:text-5xl">Lihat Produk, Promo, dan Layanan Pilihan</h2><p className="mt-4 max-w-2xl text-sm leading-7 text-slate-400">Buka brosur untuk melihat informasi layanan secara cepat, lalu hubungi admin untuk menanyakan harga, ketersediaan, dan pemesanan.</p></div>
+          <Link href="/promo-brosur" className="inline-flex items-center gap-2 text-xs font-black text-[#d3ab5a]">Lihat semua brosur <ArrowRight size={16}/></Link>
+        </div>
+        <div className="mt-8"><BrochureGrid compact/></div>
+      </div>
+    </section>
+
+    <section className="relative overflow-hidden py-16 sm:py-20">
+      <div className="absolute inset-0 bg-gradient-to-br from-[#f8f5ee] via-white to-[#eef3f7]"/>
+      <div className="absolute -left-24 top-0 size-72 rounded-full bg-[#d3ab5a]/10 blur-3xl"/>
+      <div className="absolute -right-20 bottom-0 size-80 rounded-full bg-[#07131f]/8 blur-3xl"/>
+      <div className="shell relative">
+        <div className="mb-8 grid gap-5 lg:grid-cols-[1fr_.7fr] lg:items-end">
+          <div><span className="eyebrow text-[#96721f]">Bagasi Cairo ⇄ Jakarta</span><h2 className="serif mt-4 max-w-3xl text-balance text-4xl font-bold text-[#07131f] sm:text-5xl">Jadwal Keberangkatan <span className="gold-gradient-text">Terbaru</span></h2><p className="mt-4 max-w-2xl text-sm leading-7 text-slate-600">Cek jadwal terdekat, status pendaftaran, dan pilih jadwal tanpa perlu scroll panjang.</p></div>
+          <div className="flex flex-col gap-3 sm:flex-row lg:justify-end"><Link href="/bagasi-cairo-jakarta" className="inline-flex items-center justify-center gap-2 rounded-xl border border-[#07131f]/15 bg-white px-5 py-3 text-xs font-black text-[#07131f] shadow-sm transition hover:border-[#b8903a]/40">Lihat Semua Jadwal <ArrowRight size={15}/></Link><a href={whatsappUrl("Assalamu'alaikum Barokah Group, saya ingin tanya jadwal dan harga bagasi Cairo-Jakarta. Estimasi berat saya: ... kg.")} target="_blank" rel="noreferrer" className="btn-gold inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-xs font-black"><MessageCircle size={16}/> Tanya Harga Bagasi</a></div>
+        </div>
+        <BaggageScheduleBoard compact/>
+      </div>
+    </section>
+
+    <section className="section bg-white/65 backdrop-blur-sm">
+      <div className="shell grid gap-8 lg:grid-cols-[.82fr_1.18fr] lg:items-center lg:gap-12">
+        <div>
+          <span className="eyebrow text-[#96721f]">Untuk Travel & Rombongan</span>
+          <h2 className="serif mt-4 max-w-2xl text-balance text-4xl font-bold text-[#07131f] sm:text-5xl">Butuh layanan untuk banyak peserta? Kami bantu siapkan kebutuhannya.</h2>
+          <p className="mt-5 max-w-xl text-sm leading-7 text-slate-500 sm:leading-8">Cukup siapkan jumlah peserta, tanggal perjalanan, kota tujuan, hotel, visa, LA / Land Arrangement, handling, dan transportasi. Tim kami akan membantu menyiapkan penawaran yang sesuai.</p>
+          <Link href="/b2b" className="btn-gold mt-6 inline-flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-black"><Building2 size={17}/> Minta Penawaran Rombongan <ArrowRight size={16}/></Link>
+        </div>
+        <div className="dark-glass-card rounded-3xl p-5 text-white sm:p-7">
+          <div className="grid gap-4 sm:grid-cols-2">
+            {[{Icon: Building2,title:'Travel & Rombongan',text:'Cocok untuk jamaah, grup wisata, dan travel agent.'},{Icon: Plane,title:'LA / Land Arrangement',text:'Dukungan kebutuhan darat di Saudi, Mesir, dan Turki.'},{Icon: Clock3,title:'Handling',text:'Bantuan operasional agar perjalanan rombongan lebih rapi.'},{Icon: MapPin,title:'Layanan Lengkap',text:'Hotel, visa, transportasi, tiket, dan kebutuhan lainnya.'}].map(({Icon,title,text}) => <div key={title} className="rounded-2xl border border-white/10 bg-white/[.035] p-5"><Icon size={22} className="text-[#d3ab5a]"/><p className="mt-5 text-sm font-black">{title}</p><p className="mt-2 text-xs leading-6 text-slate-400">{text}</p></div>)}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section className="border-y border-slate-200 bg-white/65 py-16 backdrop-blur-sm sm:py-20">
+      <div className="shell">
+        <div className="grid gap-8 lg:grid-cols-[.72fr_1.28fr] lg:items-start">
+          <div><span className="eyebrow text-[#96721f]">Kenapa Barokah Group</span><h2 className="serif mt-4 max-w-2xl text-balance text-4xl font-bold text-[#07131f] sm:text-5xl">Perjalanan terasa lebih mudah ketika semua kebutuhan ada di satu tempat.</h2></div>
+          <div className="grid gap-4 sm:grid-cols-3">{advantages.map(({Icon,title,text}) => <div key={title} className="premium-card p-5 sm:p-6"><Icon size={24} className="text-[#b8903a]"/><h3 className="mt-6 text-sm font-black text-[#07131f]">{title}</h3><p className="mt-3 text-xs leading-6 text-slate-500">{text}</p></div>)}</div>
+        </div>
+      </div>
+    </section>
+
+    <TestimonialsCms />
+
+    <section id="pertanyaan-umum" className="section bg-[#07131f] text-white">
+      <div className="shell grid gap-8 lg:grid-cols-[.72fr_1.28fr] lg:gap-12">
+        <div><span className="eyebrow text-[#d3ab5a]">Pertanyaan Umum</span><h2 className="serif mt-4 max-w-xl text-balance text-4xl font-bold text-[#f5e9c8] sm:text-5xl">Masih ada yang ingin ditanyakan?</h2><p className="mt-4 max-w-md text-sm leading-7 text-slate-400">Kami rangkum pertanyaan yang paling sering ditanyakan tentang layanan, pemesanan, visa, LA, handling, dan perjalanan.</p><Link href="/faq" className="btn-gold mt-6 inline-flex items-center gap-2 rounded-xl px-5 py-3 text-xs font-black"><CircleHelp size={16}/> Lihat Semua Pertanyaan <ArrowRight size={15}/></Link></div>
+        <div className="grid gap-3">{faqs.slice(0,5).map((item,i)=><details key={item.q} className="group rounded-2xl border border-white/10 bg-white/[.04] p-5 transition open:border-[#b8903a]/35 open:bg-white/[.06]"><summary className="cursor-pointer list-none text-sm font-black text-white"><span className="mr-3 text-[#d3ab5a]">0{i+1}</span>{item.q}</summary><p className="mt-4 border-t border-white/10 pt-4 text-sm leading-7 text-slate-400">{item.a}</p></details>)}</div>
+      </div>
+    </section>
+  </>;
+}
