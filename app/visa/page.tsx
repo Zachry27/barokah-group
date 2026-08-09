@@ -1,0 +1,5 @@
+import type { Metadata } from 'next';
+import { FileCheck2 } from 'lucide-react';
+import { VisaFinder } from '@/components/visa-finder';
+export const metadata: Metadata = { title: 'Visa Hub', description: 'Temukan jalur konsultasi visa Barokah Group berdasarkan tujuan dan kebutuhan perjalanan.' };
+export default function VisaPage(){return <><section className="bg-[#07131f] py-20 text-white"><div className="shell grid gap-8 lg:grid-cols-[1fr_.6fr] lg:items-center"><div><span className="eyebrow text-[#d6b66f]">Visa Hub</span><h1 className="serif mt-4 text-5xl font-semibold text-[#f4ead7] sm:text-6xl">Mulai dari tujuan dan konteks perjalanan.</h1><p className="mt-6 max-w-2xl text-base leading-8 text-white/55">Visa Group, Umrah, Mesir, Dubai, dan opsi terkait ditangani sebagai jalur konsultasi. Persetujuan tetap berada pada otoritas penerbit visa.</p></div><div className="grid place-items-center"><FileCheck2 size={110} strokeWidth={1} className="text-[#c6a25a]"/></div></div></section><VisaFinder/></>}
