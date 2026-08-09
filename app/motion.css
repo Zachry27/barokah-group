@@ -1,145 +1,228 @@
-/* Premium motion system — subtle, fast, and accessible. */
+/* Premium motion system — deliberately visible, cinematic, and accessible. */
 .motion-reveal {
   --motion-delay: 0ms;
   opacity: 0;
-  transform: translate3d(0, 22px, 0) scale(.992);
-  filter: blur(4px);
-  transition:
-    opacity .72s cubic-bezier(.22,1,.36,1) var(--motion-delay),
-    transform .78s cubic-bezier(.22,1,.36,1) var(--motion-delay),
-    filter .6s ease var(--motion-delay);
+  filter: blur(9px);
   will-change: opacity, transform, filter;
+  transition:
+    opacity .9s cubic-bezier(.16,1,.3,1) var(--motion-delay),
+    transform 1.05s cubic-bezier(.16,1,.3,1) var(--motion-delay),
+    filter .78s ease var(--motion-delay);
 }
-
+.motion-reveal[data-motion="rise"] { transform: translate3d(0,48px,0) scale(.965); }
+.motion-reveal[data-motion="left"] { transform: translate3d(-54px,28px,0) rotate(-1.2deg) scale(.97); }
+.motion-reveal[data-motion="right"] { transform: translate3d(54px,28px,0) rotate(1.2deg) scale(.97); }
+.motion-reveal[data-motion="zoom"] { transform: translate3d(0,24px,0) scale(.9); }
+.motion-reveal[data-motion="soft"] { transform: translate3d(0,30px,0) scale(.985); }
 .motion-reveal.is-visible {
   opacity: 1;
-  transform: translate3d(0,0,0) scale(1);
+  transform: translate3d(0,0,0) rotate(0) scale(1);
   filter: blur(0);
 }
 
-/* Hero feels composed instead of everything entering at once. */
-.hero-sheen .motion-reveal:nth-child(2n) { --motion-delay: 90ms; }
-.hero-sheen .motion-reveal:nth-child(3n) { --motion-delay: 160ms; }
+/* Hero gets a stronger staged entrance. */
+.hero-sheen h1.motion-reveal { transition-duration: 1s, 1.2s, .85s; }
+.hero-sheen .dark-glass-card.motion-reveal { transition-delay: calc(var(--motion-delay) + 120ms); }
+.hero-sheen .premium-card.motion-reveal { transition-delay: calc(var(--motion-delay) + 70ms); }
 
-/* Premium card micro-interactions. */
+/* Scroll progress accent on the top edge. */
+body::before {
+  content: '';
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: calc(var(--page-progress, 0) * 100%);
+  height: 2px;
+  pointer-events: none;
+  background: linear-gradient(90deg, #96721f, #dfbf72, #fff0bd);
+  box-shadow: 0 0 18px rgba(211,171,90,.65);
+}
+
+/* Cinematic ambient movement. */
+.hero-sheen::before { animation: premium-aura 5.8s ease-in-out infinite alternate; }
+.hero-sheen::after { animation: premium-aura-2 7.2s ease-in-out .8s infinite alternate-reverse; }
+.gold-gradient-text {
+  background-size: 230% 230%;
+  animation: premium-gold-flow 4.6s ease-in-out infinite;
+  filter: drop-shadow(0 8px 22px rgba(184,144,58,.12));
+}
+
+/* Cards feel tactile and reactive. */
 .premium-card,
 .dark-glass-card,
 .service-card,
 main article,
 main details {
-  transform-origin: 50% 65%;
+  transform-origin: 50% 60%;
   transition:
-    transform .36s cubic-bezier(.22,1,.36,1),
-    box-shadow .36s ease,
-    border-color .3s ease,
-    background-color .3s ease;
+    transform .42s cubic-bezier(.16,1,.3,1),
+    box-shadow .42s ease,
+    border-color .35s ease,
+    background-color .35s ease,
+    filter .35s ease;
+}
+.motion-tilt {
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  --glow-x: 50%;
+  --glow-y: 50%;
+  position: relative;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+.motion-tilt::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(circle at var(--glow-x) var(--glow-y), rgba(255,235,178,.22), transparent 36%);
+  transition: opacity .28s ease;
 }
 
 @media (hover: hover) and (pointer: fine) {
+  .motion-tilt:hover {
+    transform: perspective(950px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translateY(-9px) scale(1.018);
+    filter: saturate(1.06);
+  }
+  .motion-tilt:hover::after { opacity: 1; }
   .premium-card:hover,
-  .dark-glass-card:hover,
+  .service-card:hover,
   main article:hover {
-    transform: translateY(-5px) scale(1.006);
+    box-shadow: 0 28px 60px rgba(15,23,42,.16), 0 0 0 1px rgba(211,171,90,.12) inset;
   }
-
   .dark-glass-card:hover {
-    border-color: rgba(211,171,90,.52);
-    box-shadow: 0 30px 72px rgba(4,8,14,.38), 0 0 0 1px rgba(211,171,90,.08) inset;
+    border-color: rgba(223,191,114,.7);
+    box-shadow: 0 36px 88px rgba(4,8,14,.5), 0 0 48px rgba(211,171,90,.11), 0 0 0 1px rgba(223,191,114,.12) inset;
   }
-
-  main details:hover {
-    transform: translateX(3px);
-  }
+  main details:hover { transform: translateX(7px) scale(1.008); }
 
   main a:not(.marquee-track a),
   main button,
   header a,
   header button {
-    transition: transform .24s cubic-bezier(.22,1,.36,1), filter .24s ease, color .24s ease, background-color .24s ease, border-color .24s ease, box-shadow .24s ease;
+    transition: transform .28s cubic-bezier(.16,1,.3,1), filter .28s ease, color .28s ease, background-color .28s ease, border-color .28s ease, box-shadow .28s ease;
   }
-
   main a:hover,
   main button:hover,
   header a:hover,
-  header button:hover {
-    transform: translateY(-2px);
-  }
+  header button:hover { transform: translateY(-3px) scale(1.02); }
 }
 
-/* Gold CTA gets a restrained moving highlight. */
+/* Gold CTA gets a more visible luxury sweep. */
 .btn-gold {
   position: relative;
   overflow: hidden;
   isolation: isolate;
+  animation: premium-button-breathe 3.8s ease-in-out infinite;
+}
+.btn-gold::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(120deg, transparent 20%, rgba(255,255,255,.18) 48%, transparent 75%);
+  background-size: 220% 100%;
+  animation: premium-button-flow 3.2s linear infinite;
 }
 .btn-gold::after {
   content: '';
   position: absolute;
-  inset: -40% auto -40% -42%;
-  width: 30%;
+  inset: -55% auto -55% -50%;
+  width: 34%;
   pointer-events: none;
   z-index: 1;
   transform: skewX(-18deg);
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,.45), transparent);
-  animation: premium-shine 4.8s ease-in-out infinite;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.75), transparent);
+  animation: premium-shine 3.15s ease-in-out infinite;
 }
 .btn-gold > * { position: relative; z-index: 2; }
 
-/* Brand accents gently breathe rather than pulse aggressively. */
-.hero-sheen::before { animation: premium-aura 8s ease-in-out infinite alternate; }
-.hero-sheen::after { animation: premium-aura 10s ease-in-out 1.2s infinite alternate-reverse; }
-.gold-gradient-text { background-size: 180% 180%; animation: premium-gold-flow 7s ease-in-out infinite; }
-
-/* Icons gain tiny intentional movement on interactive cards. */
+/* Icons visibly respond. */
 .service-card svg,
 .premium-card svg,
-.dark-glass-card svg {
-  transition: transform .34s cubic-bezier(.22,1,.36,1);
+.dark-glass-card svg,
+main article svg {
+  transition: transform .42s cubic-bezier(.16,1,.3,1), filter .35s ease;
 }
 @media (hover: hover) and (pointer: fine) {
   .service-card:hover svg,
   .premium-card:hover svg,
-  .dark-glass-card:hover svg { transform: translateY(-2px) rotate(-2deg) scale(1.06); }
+  .dark-glass-card:hover svg,
+  main article:hover svg {
+    transform: translateY(-5px) rotate(-5deg) scale(1.14);
+    filter: drop-shadow(0 7px 12px rgba(211,171,90,.28));
+  }
 }
 
-/* FAQ reveal feels smooth while remaining native details/summary. */
-details[open] > :not(summary) { animation: premium-detail .32s ease both; }
+/* Brosure/media cards get a richer zoom. */
+.brochure-scroll article img,
+main article img {
+  transition: transform .8s cubic-bezier(.16,1,.3,1), filter .55s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .brochure-scroll article:hover img,
+  main article:hover img { transform: scale(1.055); filter: contrast(1.03) saturate(1.06); }
+}
 
-/* Header entrance kept short so navigation is immediately usable. */
-header { animation: premium-header-in .5s cubic-bezier(.22,1,.36,1) both; }
+/* FAQ opens with a clearly visible spring-like reveal. */
+details[open] > :not(summary) { animation: premium-detail .52s cubic-bezier(.16,1,.3,1) both; }
+details[open] summary { color: #dfbf72; }
+
+/* Header and announcement enter from above. */
+header { animation: premium-header-in .72s cubic-bezier(.16,1,.3,1) both; }
+header + * { position: relative; }
+
+/* Section ambient parallax: very small but visible during scroll. */
+main > section:nth-of-type(odd) { background-position-y: calc(var(--scroll-y, 0px) * -.012); }
 
 @keyframes premium-shine {
-  0%, 68% { left: -42%; opacity: 0; }
-  73% { opacity: .8; }
-  88% { left: 118%; opacity: 0; }
-  100% { left: 118%; opacity: 0; }
+  0%, 52% { left: -50%; opacity: 0; }
+  59% { opacity: 1; }
+  79% { left: 122%; opacity: 0; }
+  100% { left: 122%; opacity: 0; }
 }
 @keyframes premium-aura {
-  from { transform: translate3d(0,0,0) scale(.96); opacity: .72; }
-  to { transform: translate3d(10px,-8px,0) scale(1.08); opacity: 1; }
+  from { transform: translate3d(-8px,6px,0) scale(.9); opacity: .55; }
+  to { transform: translate3d(28px,-22px,0) scale(1.2); opacity: 1; }
+}
+@keyframes premium-aura-2 {
+  from { transform: translate3d(10px,-4px,0) scale(.92); opacity: .48; }
+  to { transform: translate3d(-24px,20px,0) scale(1.18); opacity: .9; }
 }
 @keyframes premium-gold-flow {
   0%,100% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
 }
+@keyframes premium-button-flow {
+  from { background-position: 220% 0; }
+  to { background-position: -20% 0; }
+}
+@keyframes premium-button-breathe {
+  0%,100% { box-shadow: 0 8px 24px rgba(184,144,58,.28); }
+  50% { box-shadow: 0 14px 34px rgba(184,144,58,.48), 0 0 24px rgba(223,191,114,.13); }
+}
 @keyframes premium-detail {
-  from { opacity: 0; transform: translateY(-5px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(-14px) scale(.98); filter: blur(4px); }
+  to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
 }
 @keyframes premium-header-in {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(-26px); filter: blur(8px); }
+  to { opacity: 1; transform: translateY(0); filter: blur(0); }
 }
 
 @media (max-width: 767px) {
-  .motion-reveal {
-    transform: translate3d(0, 14px, 0) scale(.996);
-    filter: blur(2px);
-    transition-duration: .58s, .62s, .45s;
-  }
-  .premium-card:hover,
-  .dark-glass-card:hover,
-  main article:hover { transform: none; }
+  .motion-reveal { filter: blur(5px); }
+  .motion-reveal[data-motion="rise"] { transform: translate3d(0,34px,0) scale(.97); }
+  .motion-reveal[data-motion="left"] { transform: translate3d(-28px,20px,0) scale(.975); }
+  .motion-reveal[data-motion="right"] { transform: translate3d(28px,20px,0) scale(.975); }
+  .motion-reveal[data-motion="zoom"] { transform: translate3d(0,20px,0) scale(.93); }
+  .motion-reveal[data-motion="soft"] { transform: translate3d(0,24px,0) scale(.985); }
+  .motion-reveal { transition-duration: .75s, .88s, .62s; }
+  .btn-gold { animation-duration: 4.6s; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -155,4 +238,5 @@ header { animation: premium-header-in .5s cubic-bezier(.22,1,.36,1) both; }
     transform: none !important;
     filter: none !important;
   }
+  body::before { display: none; }
 }
