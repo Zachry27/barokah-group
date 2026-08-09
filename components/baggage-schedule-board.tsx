@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { ArrowRight, CalendarDays, CheckCircle2, Clock3, Luggage, MessageCircle, PlaneTakeoff, Sparkles } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Luggage, MessageCircle, PlaneTakeoff, Sparkles } from 'lucide-react';
 import { createSupabaseClient } from '@/lib/supabase';
 import { whatsappUrl } from '@/lib/site';
 
@@ -12,11 +12,11 @@ const fallback: Schedule[] = [
 ];
 
 function prettyDate(value: string | null) {
-  if (!value) return 'Jadwal segera diumumkan';
+  if (!value) return 'Segera diumumkan';
   return new Intl.DateTimeFormat('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(`${value}T12:00:00`));
 }
 
-function dateParts(value: string | null) {
+function shortDate(value: string | null) {
   if (!value) return { day: '—', month: 'SEGERA' };
   const date = new Date(`${value}T12:00:00`);
   return {
@@ -26,13 +26,14 @@ function dateParts(value: string | null) {
 }
 
 function statusInfo(status: string) {
-  if (status === 'OPEN') return { label: 'Pendaftaran Dibuka', className: 'bg-emerald-400 text-emerald-950', dot: 'bg-emerald-500' };
-  if (status === 'FULL') return { label: 'Kuota Penuh', className: 'bg-rose-400 text-rose-950', dot: 'bg-rose-500' };
-  return { label: 'Segera Dibuka', className: 'bg-amber-300 text-amber-950', dot: 'bg-amber-400' };
+  if (status === 'OPEN') return { label: 'Dibuka', className: 'bg-emerald-400/15 text-emerald-300 border-emerald-400/25', dot: 'bg-emerald-400' };
+  if (status === 'FULL') return { label: 'Penuh', className: 'bg-rose-400/15 text-rose-300 border-rose-400/25', dot: 'bg-rose-400' };
+  return { label: 'Segera', className: 'bg-amber-300/15 text-amber-200 border-amber-300/25', dot: 'bg-amber-300' };
 }
 
 export function BaggageScheduleBoard({ compact = false }: { compact?: boolean }) {
   const [items, setItems] = useState<Schedule[]>(fallback);
+
   useEffect(() => {
     const supabase = createSupabaseClient();
     supabase.from('baggage_schedules').select('id,route,departure_date,status,note').eq('is_active', true).order('sort_order').then(({ data }) => {
@@ -40,45 +41,55 @@ export function BaggageScheduleBoard({ compact = false }: { compact?: boolean })
     });
   }, []);
 
-  return <div className={`grid gap-6 ${compact ? 'lg:grid-cols-2' : 'lg:grid-cols-2'}`}>
-    {items.map((item, index) => {
-      const parts = dateParts(item.departure_date);
-      const status = statusInfo(item.status);
-      return <article key={item.id} className="group relative overflow-hidden rounded-[28px] border border-[#b8903a]/25 bg-white shadow-[0_20px_60px_rgba(15,23,42,.10)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_26px_70px_rgba(15,23,42,.16)]">
-        <div className="absolute right-0 top-0 h-40 w-40 rounded-bl-full bg-gradient-to-bl from-[#d3ab5a]/16 to-transparent" />
-        <div className="relative bg-gradient-to-br from-[#07131f] via-[#0b1a29] to-[#142132] p-6 text-white sm:p-7">
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <p className="flex items-center gap-2 text-[9px] font-black uppercase tracking-[.18em] text-[#d3ab5a]"><Sparkles size={13}/> Jadwal Bagasi Terbaru</p>
-              <h3 className="serif mt-3 text-3xl font-bold text-[#f5e9c8] sm:text-4xl">{item.route}</h3>
-            </div>
-            <span className={`shrink-0 rounded-full px-3 py-1.5 text-[9px] font-black ${status.className}`}>{status.label}</span>
-          </div>
-          <div className="mt-6 flex items-end gap-4 border-t border-white/10 pt-5">
-            <div className="grid min-w-20 place-items-center rounded-2xl border border-[#d3ab5a]/30 bg-[#d3ab5a]/10 px-4 py-3 text-center">
-              <span className="serif text-4xl font-bold leading-none text-[#f5e9c8]">{parts.day}</span>
-              <span className="mt-1 text-[9px] font-black tracking-[.16em] text-[#d3ab5a]">{parts.month}</span>
-            </div>
-            <div className="pb-1">
-              <p className="flex items-center gap-2 text-xs font-bold text-white"><PlaneTakeoff size={16} className="text-[#d3ab5a]"/> Keberangkatan</p>
-              <p className="mt-1 text-sm text-slate-300">{prettyDate(item.departure_date)}</p>
-            </div>
-          </div>
+  return <article className="overflow-hidden rounded-[30px] border border-[#b8903a]/30 bg-gradient-to-br from-[#07131f] via-[#0b1927] to-[#04080e] text-white shadow-[0_28px_80px_rgba(7,19,31,.22)]">
+    <div className={`flex flex-col gap-5 border-b border-white/10 ${compact ? 'p-5 sm:p-6' : 'p-6 sm:p-8'} lg:flex-row lg:items-center lg:justify-between`}>
+      <div className="flex items-start gap-4">
+        <span className="grid size-12 shrink-0 place-items-center rounded-2xl border border-[#d3ab5a]/25 bg-[#d3ab5a]/10 text-[#d3ab5a]"><Luggage size={22}/></span>
+        <div>
+          <p className="flex items-center gap-2 text-[9px] font-black uppercase tracking-[.19em] text-[#d3ab5a]"><Sparkles size={12}/> Jadwal Bagasi Terbaru</p>
+          <h3 className="serif mt-1 text-2xl font-bold text-[#f5e9c8] sm:text-3xl">Cairo ⇄ Jakarta</h3>
+          <p className="mt-1 text-xs leading-5 text-slate-400">Pilih jadwal yang paling sesuai, lalu konfirmasi slot langsung ke admin.</p>
         </div>
+      </div>
+      <div className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/[.04] px-3 py-2 text-[10px] font-bold text-slate-300">
+        <CheckCircle2 size={14} className="text-emerald-400"/> Jadwal diperbarui melalui dashboard admin
+      </div>
+    </div>
 
-        <div className="relative p-6 sm:p-7">
-          <div className="grid gap-3 sm:grid-cols-2">
-            <div className="flex items-center gap-3 rounded-2xl bg-slate-50 p-4"><span className="grid size-9 place-items-center rounded-xl bg-[#07131f] text-[#d3ab5a]"><Luggage size={17}/></span><div><p className="text-[9px] font-black uppercase tracking-wider text-slate-400">Layanan</p><p className="mt-1 text-xs font-black text-[#07131f]">Bagasi Cairo ⇄ Jakarta</p></div></div>
-            <div className="flex items-center gap-3 rounded-2xl bg-slate-50 p-4"><span className="grid size-9 place-items-center rounded-xl bg-[#07131f] text-[#d3ab5a]"><Clock3 size={17}/></span><div><p className="text-[9px] font-black uppercase tracking-wider text-slate-400">Status</p><p className="mt-1 flex items-center gap-1.5 text-xs font-black text-[#07131f]"><span className={`size-2 rounded-full ${status.dot}`}/>{status.label}</p></div></div>
+    <div className="divide-y divide-white/10">
+      {items.map((item, index) => {
+        const date = shortDate(item.departure_date);
+        const status = statusInfo(item.status);
+        return <div key={item.id} className={`group grid gap-4 p-4 transition hover:bg-white/[.035] sm:p-5 ${compact ? 'lg:grid-cols-[92px_1.1fr_.9fr_auto]' : 'lg:grid-cols-[110px_1.1fr_1fr_auto]'} lg:items-center`}>
+          <div className="flex items-center gap-3 lg:block lg:text-center">
+            <div className="inline-grid min-w-16 place-items-center rounded-xl border border-[#d3ab5a]/25 bg-[#d3ab5a]/10 px-3 py-2.5">
+              <span className="serif text-2xl font-bold leading-none text-[#f5e9c8]">{date.day}</span>
+              <span className="mt-1 text-[8px] font-black tracking-[.14em] text-[#d3ab5a]">{date.month}</span>
+            </div>
+            {index === 0 && <span className="rounded-full bg-[#b8903a] px-2 py-1 text-[8px] font-black uppercase tracking-wider text-[#07131f] lg:mt-2 lg:inline-block">Terdekat</span>}
           </div>
-          <p className="mt-5 text-sm leading-7 text-slate-600">{item.note}</p>
-          <div className="mt-6 flex flex-col gap-3 border-t border-slate-200 pt-5 sm:flex-row sm:items-center sm:justify-between">
-            <p className="flex items-center gap-2 text-[10px] font-semibold text-slate-500"><CheckCircle2 size={15} className="text-emerald-600"/> Tanya ketersediaan slot sebelum mengirim barang</p>
-            <a href={whatsappUrl(`Assalamu'alaikum Barokah Group, saya ingin pesan bagasi rute ${item.route} untuk jadwal ${prettyDate(item.departure_date)}. Estimasi berat: ... kg. Jenis barang: ...`)} target="_blank" rel="noreferrer" className="btn-gold inline-flex shrink-0 items-center justify-center gap-2 rounded-xl px-5 py-3 text-xs font-black"><MessageCircle size={16}/> Pesan Slot <ArrowRight size={14}/></a>
+
+          <div>
+            <p className="text-[9px] font-black uppercase tracking-[.14em] text-slate-500">Rute</p>
+            <p className="serif mt-1 text-xl font-bold text-[#f5e9c8]">{item.route}</p>
+            <p className="mt-1 text-[11px] text-slate-400"><PlaneTakeoff size={13} className="mr-1.5 inline text-[#d3ab5a]"/>{prettyDate(item.departure_date)}</p>
           </div>
-          {index === 0 && <span className="absolute -right-8 -top-3 rotate-12 rounded-full bg-[#b8903a] px-10 py-1 text-[8px] font-black uppercase tracking-wider text-[#07131f]">Terdekat</span>}
-        </div>
-      </article>;
-    })}
-  </div>;
+
+          <div className="min-w-0">
+            <div className="flex items-center gap-2">
+              <span className={`inline-flex items-center gap-2 rounded-full border px-2.5 py-1 text-[9px] font-black ${status.className}`}><span className={`size-1.5 rounded-full ${status.dot}`}/>{status.label}</span>
+            </div>
+            <p className="mt-2 line-clamp-2 text-[11px] leading-5 text-slate-400">{item.note}</p>
+          </div>
+
+          <a href={whatsappUrl(`Assalamu'alaikum Barokah Group, saya ingin pesan bagasi rute ${item.route} untuk jadwal ${prettyDate(item.departure_date)}. Estimasi berat: ... kg. Jenis barang: ...`)} target="_blank" rel="noreferrer" className="btn-gold inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-[10px] font-black lg:justify-self-end"><MessageCircle size={14}/> Pilih Jadwal <ArrowRight size={13}/></a>
+        </div>;
+      })}
+    </div>
+
+    <div className="flex flex-col gap-3 border-t border-white/10 bg-black/10 p-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+      <p className="text-[10px] leading-5 text-slate-400">Harga dan ketersediaan slot mengikuti berat, jenis barang, serta jadwal yang dipilih.</p>
+      <a href={whatsappUrl("Assalamu'alaikum Barokah Group, saya ingin konsultasi bagasi Cairo-Jakarta. Estimasi berat saya: ... kg.")} target="_blank" rel="noreferrer" className="text-[10px] font-black text-[#d3ab5a] hover:text-[#f5e9c8]">Tanya harga & ketentuan →</a>
+    </div>
+  </article>;
 }
