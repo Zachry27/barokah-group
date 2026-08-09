@@ -1,8 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import { SiteHeader } from '@/components/site-header';
-import { SiteFooter } from '@/components/site-footer';
+import { SiteChrome } from '@/components/site-chrome';
 import { siteUrl } from '@/lib/site';
 import './globals.css';
 
@@ -16,5 +15,5 @@ export const metadata: Metadata = {
 export const viewport: Viewport = { themeColor: '#07131f', colorScheme: 'light' };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="id"><body><SiteHeader/><main>{children}</main><SiteFooter/><Analytics/><SpeedInsights/></body></html>;
+  return <html lang="id"><body><SiteChrome>{children}</SiteChrome><Analytics/><SpeedInsights/></body></html>;
 }
