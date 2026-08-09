@@ -130,6 +130,26 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .brochure-scroll { scrollbar-width: none; }
 .brochure-scroll::-webkit-scrollbar { display: none; }
 
+@media (min-width: 1024px) {
+  .hero-sheen { padding-block: 54px !important; }
+  .hero-sheen > .shell { grid-template-columns: minmax(0, 6.2fr) minmax(390px, 5.8fr) !important; gap: 52px !important; align-items: center; }
+  .hero-sheen > .shell > div:first-child { grid-column: auto !important; }
+  .hero-sheen > .shell > div:last-child { grid-column: auto !important; }
+  .hero-sheen h1 {
+    max-width: 720px !important;
+    font-size: clamp(3.45rem, 4.65vw, 4.35rem) !important;
+    line-height: .96 !important;
+    letter-spacing: -.025em;
+  }
+  .hero-sheen > .shell > div:first-child { gap: 1.15rem; }
+  .hero-sheen .premium-card,
+  .hero-sheen .dark-glass-card { max-width: 680px; }
+}
+
+@media (min-width: 1280px) {
+  .hero-sheen h1 { font-size: 4.45rem !important; max-width: 760px !important; }
+}
+
 @media (max-width: 767px) {
   .section { padding-block: 64px; }
   .shell { width: min(100% - 24px, 1240px); }
