@@ -3,9 +3,10 @@
 import { usePathname } from 'next/navigation';
 import { SiteHeader } from '@/components/site-header';
 import { SiteFooter } from '@/components/site-footer';
+import { MotionOrchestrator } from '@/components/motion-orchestrator';
 
 export function SiteChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   if (pathname.startsWith('/admin')) return <>{children}</>;
-  return <><SiteHeader/><main>{children}</main><SiteFooter/></>;
+  return <><SiteHeader/><main>{children}</main><SiteFooter/><MotionOrchestrator/></>;
 }
