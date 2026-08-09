@@ -28,23 +28,36 @@ export function MotionOrchestrator() {
     const isMobile = window.matchMedia('(max-width: 767px), (pointer: coarse)').matches;
     const nodes = Array.from(document.querySelectorAll<HTMLElement>(selector));
     const unique = nodes.filter((node, index) => nodes.indexOf(node) === index && !node.closest('[data-no-reveal]'));
+    const cleanups: Array<() => void> = [];
 
     unique.forEach((node, index) => {
       node.classList.add('motion-reveal');
-      node.style.setProperty('--motion-delay', `${isMobile ? Math.min((index % 3) * 45, 90) : Math.min((index % 6) * 70, 350)}ms`);
+      node.style.setProperty('--motion-delay', `${isMobile ? Math.min((index % 4) * 70, 210) : Math.min((index % 6) * 75, 375)}ms`);
 
       if (node.matches('h1,h2,.eyebrow')) node.dataset.motion = 'rise';
-      else if (!isMobile && node.matches('.premium-card,.service-card,article')) node.dataset.motion = index % 2 === 0 ? 'left' : 'right';
+      else if (node.matches('.premium-card,.service-card,article')) node.dataset.motion = index % 2 === 0 ? 'left' : 'right';
       else if (node.matches('.dark-glass-card,table')) node.dataset.motion = 'zoom';
-      else node.dataset.motion = 'soft';
+      else node.dataset.motion = index % 2 === 0 ? 'soft-left' : 'soft-right';
+
+      const finish = () => node.classList.add('motion-done');
+      node.addEventListener('animationend', finish, { once: true });
+      cleanups.push(() => node.removeEventListener('animationend', finish));
     });
 
-    const reveal = (node: HTMLElement) => node.classList.add('is-visible');
+    const reveal = (node: HTMLElement) => {
+      if (node.classList.contains('motion-done') || node.classList.contains('is-visible')) return;
+      node.classList.add('is-visible');
+    };
 
-    // Anything already in/near the viewport must never remain stuck in its hidden state.
-    unique.forEach((node) => {
+    const initial = unique.filter((node) => {
       const rect = node.getBoundingClientRect();
-      if (rect.top < window.innerHeight * 1.08 && rect.bottom > -80) reveal(node);
+      return rect.top < window.innerHeight * 1.02 && rect.bottom > -40;
+    });
+
+    let firstFrame = 0;
+    let secondFrame = 0;
+    firstFrame = requestAnimationFrame(() => {
+      secondFrame = requestAnimationFrame(() => initial.forEach(reveal));
     });
 
     const observer = new IntersectionObserver((entries, obs) => {
@@ -53,27 +66,29 @@ export function MotionOrchestrator() {
         reveal(entry.target as HTMLElement);
         obs.unobserve(entry.target);
       });
-    }, { threshold: isMobile ? 0.03 : 0.1, rootMargin: isMobile ? '0px 0px 14% 0px' : '0px 0px -3% 0px' });
+    }, {
+      threshold: isMobile ? 0.04 : 0.1,
+      rootMargin: isMobile ? '0px 0px 10% 0px' : '0px 0px -3% 0px'
+    });
 
-    unique.filter((node) => !node.classList.contains('is-visible')).forEach((node) => observer.observe(node));
+    unique.filter((node) => !initial.includes(node)).forEach((node) => observer.observe(node));
 
-    // Safari/iOS safety net: reveal everything if IntersectionObserver is delayed or interrupted.
-    const safetyTimer = window.setTimeout(() => unique.forEach(reveal), isMobile ? 1400 : 2600);
+    // iOS/Safari safety net. If the observer is interrupted, no element can stay hidden or displaced.
+    const safetyTimer = window.setTimeout(() => unique.forEach(reveal), isMobile ? 1800 : 2800);
 
     const root = document.documentElement;
-    let frame = 0;
+    let scrollFrame = 0;
     const onScroll = () => {
-      if (frame) return;
-      frame = requestAnimationFrame(() => {
+      if (scrollFrame) return;
+      scrollFrame = requestAnimationFrame(() => {
         const max = Math.max(document.body.scrollHeight - window.innerHeight, 1);
         root.style.setProperty('--page-progress', String(Math.min(window.scrollY / max, 1)));
-        frame = 0;
+        scrollFrame = 0;
       });
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
 
-    const cleanup: Array<() => void> = [];
     if (!isMobile && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
       Array.from(document.querySelectorAll<HTMLElement>(tiltSelector)).forEach((card) => {
         card.classList.add('motion-tilt');
@@ -92,7 +107,7 @@ export function MotionOrchestrator() {
         };
         card.addEventListener('pointermove', move);
         card.addEventListener('pointerleave', leave);
-        cleanup.push(() => {
+        cleanups.push(() => {
           card.removeEventListener('pointermove', move);
           card.removeEventListener('pointerleave', leave);
         });
@@ -103,8 +118,10 @@ export function MotionOrchestrator() {
       observer.disconnect();
       window.clearTimeout(safetyTimer);
       window.removeEventListener('scroll', onScroll);
-      if (frame) cancelAnimationFrame(frame);
-      cleanup.forEach((fn) => fn());
+      if (firstFrame) cancelAnimationFrame(firstFrame);
+      if (secondFrame) cancelAnimationFrame(secondFrame);
+      if (scrollFrame) cancelAnimationFrame(scrollFrame);
+      cleanups.forEach((fn) => fn());
     };
   }, [pathname]);
 
