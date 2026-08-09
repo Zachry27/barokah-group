@@ -4,6 +4,7 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import { SiteChrome } from '@/components/site-chrome';
 import { siteUrl } from '@/lib/site';
 import './globals.css';
+import './motion.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
