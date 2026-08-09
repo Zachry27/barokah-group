@@ -1,0 +1,158 @@
+/* Premium motion system — subtle, fast, and accessible. */
+.motion-reveal {
+  --motion-delay: 0ms;
+  opacity: 0;
+  transform: translate3d(0, 22px, 0) scale(.992);
+  filter: blur(4px);
+  transition:
+    opacity .72s cubic-bezier(.22,1,.36,1) var(--motion-delay),
+    transform .78s cubic-bezier(.22,1,.36,1) var(--motion-delay),
+    filter .6s ease var(--motion-delay);
+  will-change: opacity, transform, filter;
+}
+
+.motion-reveal.is-visible {
+  opacity: 1;
+  transform: translate3d(0,0,0) scale(1);
+  filter: blur(0);
+}
+
+/* Hero feels composed instead of everything entering at once. */
+.hero-sheen .motion-reveal:nth-child(2n) { --motion-delay: 90ms; }
+.hero-sheen .motion-reveal:nth-child(3n) { --motion-delay: 160ms; }
+
+/* Premium card micro-interactions. */
+.premium-card,
+.dark-glass-card,
+.service-card,
+main article,
+main details {
+  transform-origin: 50% 65%;
+  transition:
+    transform .36s cubic-bezier(.22,1,.36,1),
+    box-shadow .36s ease,
+    border-color .3s ease,
+    background-color .3s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .premium-card:hover,
+  .dark-glass-card:hover,
+  main article:hover {
+    transform: translateY(-5px) scale(1.006);
+  }
+
+  .dark-glass-card:hover {
+    border-color: rgba(211,171,90,.52);
+    box-shadow: 0 30px 72px rgba(4,8,14,.38), 0 0 0 1px rgba(211,171,90,.08) inset;
+  }
+
+  main details:hover {
+    transform: translateX(3px);
+  }
+
+  main a:not(.marquee-track a),
+  main button,
+  header a,
+  header button {
+    transition: transform .24s cubic-bezier(.22,1,.36,1), filter .24s ease, color .24s ease, background-color .24s ease, border-color .24s ease, box-shadow .24s ease;
+  }
+
+  main a:hover,
+  main button:hover,
+  header a:hover,
+  header button:hover {
+    transform: translateY(-2px);
+  }
+}
+
+/* Gold CTA gets a restrained moving highlight. */
+.btn-gold {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.btn-gold::after {
+  content: '';
+  position: absolute;
+  inset: -40% auto -40% -42%;
+  width: 30%;
+  pointer-events: none;
+  z-index: 1;
+  transform: skewX(-18deg);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.45), transparent);
+  animation: premium-shine 4.8s ease-in-out infinite;
+}
+.btn-gold > * { position: relative; z-index: 2; }
+
+/* Brand accents gently breathe rather than pulse aggressively. */
+.hero-sheen::before { animation: premium-aura 8s ease-in-out infinite alternate; }
+.hero-sheen::after { animation: premium-aura 10s ease-in-out 1.2s infinite alternate-reverse; }
+.gold-gradient-text { background-size: 180% 180%; animation: premium-gold-flow 7s ease-in-out infinite; }
+
+/* Icons gain tiny intentional movement on interactive cards. */
+.service-card svg,
+.premium-card svg,
+.dark-glass-card svg {
+  transition: transform .34s cubic-bezier(.22,1,.36,1);
+}
+@media (hover: hover) and (pointer: fine) {
+  .service-card:hover svg,
+  .premium-card:hover svg,
+  .dark-glass-card:hover svg { transform: translateY(-2px) rotate(-2deg) scale(1.06); }
+}
+
+/* FAQ reveal feels smooth while remaining native details/summary. */
+details[open] > :not(summary) { animation: premium-detail .32s ease both; }
+
+/* Header entrance kept short so navigation is immediately usable. */
+header { animation: premium-header-in .5s cubic-bezier(.22,1,.36,1) both; }
+
+@keyframes premium-shine {
+  0%, 68% { left: -42%; opacity: 0; }
+  73% { opacity: .8; }
+  88% { left: 118%; opacity: 0; }
+  100% { left: 118%; opacity: 0; }
+}
+@keyframes premium-aura {
+  from { transform: translate3d(0,0,0) scale(.96); opacity: .72; }
+  to { transform: translate3d(10px,-8px,0) scale(1.08); opacity: 1; }
+}
+@keyframes premium-gold-flow {
+  0%,100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+@keyframes premium-detail {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes premium-header-in {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 767px) {
+  .motion-reveal {
+    transform: translate3d(0, 14px, 0) scale(.996);
+    filter: blur(2px);
+    transition-duration: .58s, .62s, .45s;
+  }
+  .premium-card:hover,
+  .dark-glass-card:hover,
+  main article:hover { transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .motion-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+}
