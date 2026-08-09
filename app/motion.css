@@ -5,12 +5,12 @@
   transform: none;
   will-change: opacity, transform;
 }
-.motion-reveal.is-visible[data-motion="rise"] { animation: reveal-rise .82s cubic-bezier(.16,1,.3,1) var(--motion-delay) both; }
-.motion-reveal.is-visible[data-motion="left"] { animation: reveal-diagonal-left .88s cubic-bezier(.16,1,.3,1) var(--motion-delay) both; }
-.motion-reveal.is-visible[data-motion="right"] { animation: reveal-diagonal-right .88s cubic-bezier(.16,1,.3,1) var(--motion-delay) both; }
-.motion-reveal.is-visible[data-motion="zoom"] { animation: reveal-zoom .78s cubic-bezier(.16,1,.3,1) var(--motion-delay) both; }
-.motion-reveal.is-visible[data-motion="soft-left"] { animation: reveal-soft-left .72s cubic-bezier(.16,1,.3,1) var(--motion-delay) both; }
-.motion-reveal.is-visible[data-motion="soft-right"] { animation: reveal-soft-right .72s cubic-bezier(.16,1,.3,1) var(--motion-delay) both; }
+.motion-reveal.is-visible[data-motion="rise"] { animation: reveal-rise 1.35s cubic-bezier(.16,1,.3,1) var(--motion-delay) both; }
+.motion-reveal.is-visible[data-motion="left"] { animation: reveal-diagonal-left 1.45s cubic-bezier(.16,1,.3,1) var(--motion-delay) both; }
+.motion-reveal.is-visible[data-motion="right"] { animation: reveal-diagonal-right 1.45s cubic-bezier(.16,1,.3,1) var(--motion-delay) both; }
+.motion-reveal.is-visible[data-motion="zoom"] { animation: reveal-zoom 1.3s cubic-bezier(.16,1,.3,1) var(--motion-delay) both; }
+.motion-reveal.is-visible[data-motion="soft-left"] { animation: reveal-soft-left 1.2s cubic-bezier(.16,1,.3,1) var(--motion-delay) both; }
+.motion-reveal.is-visible[data-motion="soft-right"] { animation: reveal-soft-right 1.2s cubic-bezier(.16,1,.3,1) var(--motion-delay) both; }
 .motion-reveal.motion-done {
   opacity: 1 !important;
   transform: none !important;
@@ -56,8 +56,8 @@ body::before {
 .btn-gold > * { position:relative; z-index:2; }
 
 .service-card svg,.premium-card svg,.dark-glass-card svg,main article svg { transition:transform .35s cubic-bezier(.16,1,.3,1); }
-.motion-reveal.is-visible .eyebrow::before { animation: premium-line-draw .7s cubic-bezier(.16,1,.3,1) both; transform-origin:left; }
-.motion-reveal.is-visible h3,.motion-reveal.is-visible h2,.motion-reveal.is-visible h1 { animation: premium-text-settle .7s cubic-bezier(.16,1,.3,1) both; }
+.motion-reveal.is-visible .eyebrow::before { animation: premium-line-draw 1.1s cubic-bezier(.16,1,.3,1) both; transform-origin:left; }
+.motion-reveal.is-visible h3,.motion-reveal.is-visible h2,.motion-reveal.is-visible h1 { animation: premium-text-settle 1.1s cubic-bezier(.16,1,.3,1) both; }
 @media (hover:hover) and (pointer:fine) {
   .service-card:hover svg,.premium-card:hover svg,.dark-glass-card:hover svg,main article:hover svg { transform:translateY(-4px) rotate(-4deg) scale(1.1); }
   .premium-card a:not(.btn-gold),.dark-glass-card a:not(.btn-gold),main details summary { transition:letter-spacing .3s ease, color .3s ease; }
@@ -107,12 +107,12 @@ header { animation:premium-header-in .58s cubic-bezier(.16,1,.3,1) both; }
 
 @media (max-width:767px), (pointer:coarse) {
   .motion-reveal { transform:none; }
-  .motion-reveal.is-visible[data-motion="left"] { animation-name:reveal-mobile-left; animation-duration:.78s; }
-  .motion-reveal.is-visible[data-motion="right"] { animation-name:reveal-mobile-right; animation-duration:.78s; }
-  .motion-reveal.is-visible[data-motion="rise"] { animation-name:reveal-mobile-rise; animation-duration:.72s; }
-  .motion-reveal.is-visible[data-motion="zoom"] { animation-duration:.7s; }
-  .motion-reveal.is-visible[data-motion="soft-left"] { animation-name:reveal-mobile-soft-left; animation-duration:.68s; }
-  .motion-reveal.is-visible[data-motion="soft-right"] { animation-name:reveal-mobile-soft-right; animation-duration:.68s; }
+  .motion-reveal.is-visible[data-motion="left"] { animation-name:reveal-mobile-left; animation-duration:1.15s; }
+  .motion-reveal.is-visible[data-motion="right"] { animation-name:reveal-mobile-right; animation-duration:1.15s; }
+  .motion-reveal.is-visible[data-motion="rise"] { animation-name:reveal-mobile-rise; animation-duration:1.05s; }
+  .motion-reveal.is-visible[data-motion="zoom"] { animation-duration:1.05s; }
+  .motion-reveal.is-visible[data-motion="soft-left"] { animation-name:reveal-mobile-soft-left; animation-duration:1s; }
+  .motion-reveal.is-visible[data-motion="soft-right"] { animation-name:reveal-mobile-soft-right; animation-duration:1s; }
   .hero-sheen::before,.hero-sheen::after { animation-duration:10s; }
   .btn-gold { animation-duration:5s; }
 }

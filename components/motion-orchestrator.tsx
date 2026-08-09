@@ -73,8 +73,6 @@ export function MotionOrchestrator() {
 
     unique.filter((node) => !initial.includes(node)).forEach((node) => observer.observe(node));
 
-    // iOS/Safari safety net. If the observer is interrupted, no element can stay hidden or displaced.
-    const safetyTimer = window.setTimeout(() => unique.forEach(reveal), isMobile ? 1800 : 2800);
 
     const root = document.documentElement;
     let scrollFrame = 0;
@@ -116,7 +114,7 @@ export function MotionOrchestrator() {
 
     return () => {
       observer.disconnect();
-      window.clearTimeout(safetyTimer);
+
       window.removeEventListener('scroll', onScroll);
       if (firstFrame) cancelAnimationFrame(firstFrame);
       if (secondFrame) cancelAnimationFrame(secondFrame);
